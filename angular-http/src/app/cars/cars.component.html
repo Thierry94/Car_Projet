@@ -1,0 +1,49 @@
+<h2>Select a car:</h2>
+
+<h3>Click on any car to be rented:</h3>
+
+<ul class="cars">
+  <li *ngFor="let car of cars" (click)="onSelect(car)">
+    {{car.plateNumber}}: {{car.model}}: {{car.price}} euros/day
+    <div *ngIf="car.rented == false">
+      TO BE RENTED
+    </div>
+    <div *ngIf="car.rented == true">
+      RENTED
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="selectedCar">
+  <h2>Selected car: {{selectedCar.model | uppercase}}
+  </h2>
+  <button (click)="rent(selectedCar)">Rent it now !</button>
+</div>
+
+<div *ngIf="rentedCar">
+  <h2>Rented car:</h2>
+  {{rentedCar.plateNumber}}: {{rentedCar.model}}
+</div>
+<hr>
+<h2> Create Car</h2>
+<form class="container w-50" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" >
+  <div class="form-group w-25">
+    <label for="plateNumber">Plate Number</label>
+    <input type="number" class="form-control" id="plateNumber" name="plateNumber" #plateNumber= "ngModel" [(ngModel)]="car.plateNumber" placeholder="Enter Plate Number">
+  </div>
+  <div class="form-group w-25">
+    <label for="model">Model</label>
+    <input type="text" class="form-control" id="model" name="model" #model= "ngModel" [(ngModel)]="car.model" placeholder="Model">
+  </div>
+
+  <div class="form-group w-25">
+    <label for="price">Price</label>
+    <input type="number" class="form-control" id="price" name="price" #price="ngModel" [(ngModel)]="car.price" placeholder="Price">
+  </div>
+
+  <div class="form-group w-25">
+    <label for="nod">Number Of Days</label>
+    <input type="number" class="form-control" id="nod" name="nod"   #nod= "ngModel" [(ngModel)]="car.numberOfDays" placeholder="Number Of Days">
+  </div>
+  <button type="submit" class="btn btn-primary" >Save</button>
+</form>

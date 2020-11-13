@@ -1,0 +1,57 @@
+<h2>Select a Van:</h2>
+
+<h3>Click on any Van to be rented:</h3>
+
+<ul class="cars">
+    <li *ngFor="let van of vans" (click)="onSelect(van)">
+        {{van.plateNumber}}: {{van.model}}: {{van.price}} euros/day
+        <div *ngIf="van.rented == false">
+            TO BE RENTED
+        </div>
+        <div *ngIf="van.rented == true">
+            RENTED
+        </div>
+    </li>
+</ul>
+
+<div *ngIf="selectedVan">
+    <h2>Selected Van: {{selectedVan.model | uppercase}}
+    </h2>
+    <button (click)="rent(selectedVan)">Rent it now !</button>
+</div>
+
+<div *ngIf="rentedVan">
+    <h2>Rented Van:</h2>
+    {{rentedVan.plateNumber}}: {{rentedVan.model}}
+</div>
+
+<hr>
+<h2> Create Van</h2>
+<form class="container w-50" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" >
+    <div class="form-group w-25">
+        <label for="plateNumber">Plate Number</label>
+        <input type="number" class="form-control" id="plateNumber" name="plateNumber" #plateNumber= "ngModel" [(ngModel)]="van.plateNumber" placeholder="Enter Plate Number">
+    </div>
+    <div class="form-group w-25">
+        <label for="model">Model</label>
+        <input type="text" class="form-control" id="model" name="model" #model= "ngModel" [(ngModel)]="van.model" placeholder="Model">
+    </div>
+
+    <div class="form-group w-25">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" #price="ngModel" [(ngModel)]="van.price" placeholder="Price">
+    </div>
+
+    <div class="form-group w-25">
+        <label for="nod">Number Of Days</label>
+        <input type="number" class="form-control" id="nod" name="nod"   #nod= "ngModel" [(ngModel)]="van.numberOfDays" placeholder="Number Of Days">
+    </div>
+
+    <div class="form-group w-25">
+        <label for="mw">Max Weight</label>
+        <input type="number" class="form-control" id="mw" name="mw"   #mw= "ngModel" [(ngModel)]="van.maxWeight" placeholder="Number Of Days">
+    </div>
+    <button type="submit" class="btn btn-primary" >Save</button>
+</form>
+
+
